@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putnbr_fd.c                                     :+:      :+:    :+:   */
+/*   ft_puts.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tjeong <tjeong@student.42seoul.kr>         +#+  +:+       +#+        */
+/*   By: tjeong <tjeong@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/05/06 21:25:31 by tjeong            #+#    #+#             */
-/*   Updated: 2021/05/07 20:40:14 by tjeong           ###   ########.fr       */
+/*   Created: 2021/05/18 18:19:56 by tjeong            #+#    #+#             */
+/*   Updated: 2021/05/18 18:21:39 by tjeong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "printf.h"
 
-void	ft_putnbr_recur(int n, int fd)
+static void		ft_putnbr_recur(long long n, int fd)
 {
 	char tmp;
 
@@ -30,13 +30,8 @@ void	ft_putnbr_recur(int n, int fd)
 	}
 }
 
-void	ft_putnbr_fd(int n, int fd)
+void			ft_putnbr_fd(long long n, int fd)
 {
-	if (n == -2147483648)
-	{
-		write(fd, "-2147483648", 11);
-		return ;
-	}
 	if (n < 0)
 	{
 		n *= -1;
@@ -44,4 +39,16 @@ void	ft_putnbr_fd(int n, int fd)
 	}
 	ft_putnbr_recur(n, fd);
 	return ;
+}
+
+void			ft_putstr_fd(char *s, int fd)
+{
+	if (!s)
+		return ;
+	write(fd, s, ft_strlen(s));
+}
+
+void			ft_putchar_fd(char c, int fd)
+{
+	write(fd, &c, 1);
 }
