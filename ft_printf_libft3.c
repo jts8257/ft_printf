@@ -1,31 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_itoa.c                                          :+:      :+:    :+:   */
+/*   ft_printf_libft3.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tjeong <tjeong@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/07 10:13:03 by tjeong            #+#    #+#             */
-/*   Updated: 2021/07/04 17:29:14 by tjeong           ###   ########.fr       */
+/*   Updated: 2021/07/05 13:04:04 by tjeong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "printf.h"
 
 static int	ft_digit(long long n)
 {
-	int digit;
+	int	digit;
 
-	digit = 1;
-	while (n /= 10)
+	digit = 0;
+	while (n)
+	{
 		digit++;
+		n /= 10;
+	}
 	return (digit);
 }
 
-static void	ft_itoa_insert(long long n, char *converted, int size)
+static	void	ft_itoa_insert(long long n, char *converted, int size)
 {
-	int limit;
-	int sign;
+	int	limit;
+	int	sign;
 
 	limit = 0;
 	sign = 1;
@@ -43,12 +46,15 @@ static void	ft_itoa_insert(long long n, char *converted, int size)
 	}
 }
 
-char		*ft_itoa(long long n)
+char	*ft_itoa(long long n)
 {
 	char	*converted;
 	int		size;
 
-	size = n < 0 ? ft_digit(n) + 1 : ft_digit(n);
+	if (n <= 0)
+		size = ft_digit(n) + 1;
+	else
+		size = ft_digit(n);
 	converted = (char *)malloc(size * sizeof(char) + 1);
 	if (!converted)
 		return (NULL);
