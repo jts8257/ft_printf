@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf_utils1.c                                 :+:      :+:    :+:   */
+/*   ft_printf_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tjeong <tjeong@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/05 10:34:39 by tjeong            #+#    #+#             */
-/*   Updated: 2021/07/05 12:51:27 by tjeong           ###   ########.fr       */
+/*   Updated: 2021/07/05 15:30:54 by tjeong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,8 @@ char	*zero_padding(size_t zero_flag, size_t size)
 	if (size < 0)
 	{
 		padding = ft_strdup("");
+		if (!padding)
+			return (NULL);
 		return (padding);
 	}
 	padding = (char *)calloc(sizeof(char), size + 1);

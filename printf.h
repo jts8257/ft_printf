@@ -23,16 +23,17 @@ int		find_format(char *fmt, va_list *ap);
 int		char_format(int ch, t_opt *opt);
 int		str_format(char *str, t_opt *opt);
 int		int_format(int n, t_opt *opt);
-int		pointer_format(long long n, t_opt *opt);
-int		uint_format(unsigned int n, t_opt *opt);
+int		unint_format(unsigned int n, t_opt *opt);
+int		pointer_format(unsigned long long n, t_opt *opt);
+int		hex_format(unsigned int n, t_opt *opt);
 
 char	*zero_padding(size_t zr_flg, size_t size);
 char	*minus_sorting(size_t mns_flg, char *arg, char *padding);
 char	*apply_prec(int prec, char *arg);
 char	*apply_width(t_opt *opt, char *sign, char *arg);
 
-int		ft_dupl_check(char *str, int length);
-char	*ft_tobase_n(long long n, char *base);
+char	*treat_hex(unsigned int num, char *hex);
+char	*treat_ptr(unsigned long long num);
 
 void	ft_bzero(void *s, size_t n);
 void	*ft_calloc(size_t count, size_t size);

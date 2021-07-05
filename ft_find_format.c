@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf_inner_func.c                             :+:      :+:    :+:   */
+/*   ft_find_format.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tjeong <tjeong@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/05 12:41:52 by tjeong            #+#    #+#             */
-/*   Updated: 2021/07/05 13:00:15 by tjeong           ###   ########.fr       */
+/*   Updated: 2021/07/05 15:03:27 by tjeong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,10 +53,12 @@ static int	type_matcging(va_list *ap, t_opt *opt)
 		return (str_format(va_arg(*ap, char *), opt));
 	else if (opt->type == 'i' || opt->type == 'd')
 		return (int_format(va_arg(*ap, int), opt));
+	else if (opt->type == 'u')
+		return (unint_format(va_arg(*ap, unsigned int), opt));
 	else if (opt->type == 'p')
-		return (pointer_format(va_arg(*ap, long long), opt));
-	else if (opt->type == 'u' || opt->type == 'x' || opt->type == 'X')
-		return (uint_format(va_arg(*ap, unsigned long long), opt));
+		return (pointer_format(va_arg(*ap, unsigned long long), opt));
+	else if (opt->type == 'x' || opt->type == 'X')
+		return (hex_format(va_arg(*ap, unsigned int), opt));
 	else if (opt->type == '%')
 		return (char_format(opt->type, opt));
 	else
