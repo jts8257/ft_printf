@@ -62,9 +62,9 @@ void	*ft_memset(void *b, int c, size_t len)
 	return (b);
 }
 
-size_t	ft_strlen(const char *str)
+int	ft_strlen(const char *str)
 {
-	size_t	i;
+	int	i;
 
 	i = 0;
 	while (str[i])

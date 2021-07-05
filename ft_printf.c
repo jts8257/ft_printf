@@ -12,6 +12,19 @@
 
 #include "printf.h"
 
+static char	*next_addr(char *str)
+{
+	while (*str)
+	{
+		if (ft_strchr(TYPES, *str))
+		{
+			return (++str);
+		}
+		str++;
+	}
+	return (0);
+}
+
 int	ft_printf(const char *str, ...)
 {
 	int			print_len;

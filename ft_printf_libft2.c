@@ -12,13 +12,13 @@
 
 #include "printf.h"
 
-size_t	ft_putchar_fd(char c, int fd)
+int	ft_putchar_fd(char c, int fd)
 {
 	write(fd, &c, 1);
 	return (1);
 }
 
-size_t	ft_putstr_fd(char *s, int fd)
+int	ft_putstr_fd(char *s, int fd)
 {
 	if (!s)
 		return (0);

@@ -12,27 +12,14 @@
 
 #include "printf.h"
 
-void	change_opt(t_opt *opt)
+static void	change_opt(t_opt *opt)
 {
 	opt->minus = 1;
 	opt->width *= -1;
 	opt->zero = 0;
 }
 
-char	*next_addr(char *str)
-{
-	while (*str)
-	{
-		if (ft_strchr(TYPES, *str))
-		{
-			return (++str);
-		}
-		str++;
-	}
-	return (0);
-}
-
-void	set_width_or_prec(va_list *ap, t_opt *opt, char ch)
+static void	set_width_prec(va_list *ap, t_opt *opt, char ch)
 {
 	if (ft_isdigit(ch))
 	{
@@ -58,7 +45,7 @@ void	set_width_or_prec(va_list *ap, t_opt *opt, char ch)
 	}
 }
 
-int	type_matcging(va_list *ap, t_opt *opt)
+static int	type_matcging(va_list *ap, t_opt *opt)
 {
 	if (opt->type == 'c')
 		return (char_format(va_arg(*ap, int), opt));
@@ -94,7 +81,7 @@ int	find_format(char *str, va_list *ap)
 		else if (*str == '.')
 			opt->prec = 0;
 		else if (ft_isdigit(*str) || *str == '*')
-			set_width_or_prec(ap, opt, *str);
+			set_width_prec(ap, opt, *str);
 		str++;
 	}
 	opt->type = *str;

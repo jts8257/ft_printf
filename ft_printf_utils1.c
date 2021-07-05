@@ -18,7 +18,7 @@ t_opt	*init_opt(void)
 
 	opt = malloc(sizeof(t_opt));
 	if (!opt)
-		return (0);
+		return (NULL);
 	opt->minus = 0;
 	opt->zero = 0;
 	opt->width = 0;
@@ -27,7 +27,7 @@ t_opt	*init_opt(void)
 	return (opt);
 }
 
-char	*set_padding(size_t zero_flag, size_t size)
+char	*zero_padding(size_t zero_flag, size_t size)
 {
 	char	*padding;
 
@@ -37,6 +37,8 @@ char	*set_padding(size_t zero_flag, size_t size)
 		return (padding);
 	}
 	padding = (char *)calloc(sizeof(char), size + 1);
+	if (!padding)
+		return (NULL);
 	if (zero_flag == 0)
 		ft_memset(padding, ' ', size);
 	else
@@ -44,7 +46,7 @@ char	*set_padding(size_t zero_flag, size_t size)
 	return (padding);
 }
 
-char	*set_sorting(size_t mns_flg, char *arg, char *padding)
+char	*minus_sorting(size_t mns_flg, char *arg, char *padding)
 {
 	char	*result;
 
@@ -52,38 +54,46 @@ char	*set_sorting(size_t mns_flg, char *arg, char *padding)
 		result = ft_strjoin(padding, arg);
 	else
 		result = ft_strjoin(arg, padding);
+	if (!result)
+		return (NULL);
 	return (result);
 }
 
-char	*applies_to_prec(int prec, char *arg)
+char	*apply_prec(int prec, char *arg)
 {
 	char	*padding;
 
-	if (prec > -1 && (size_t)prec > ft_strlen(arg))
+	if (prec > -1 && prec > ft_strlen(arg))
 	{
-		padding = set_padding(1, prec - ft_strlen(arg));
-		arg = set_sorting(0, arg, padding);
+		padding = zero_padding(1, prec - ft_strlen(arg));
+		arg = minus_sorting(0, arg, padding);
 	}
+	if (!arg)
+		return (NULL);
 	return (arg);
 }
 
-char	*applies_to_width(t_opt *opt, char *sign, char *arg)
+char	*apply_width(t_opt *opt, char *sign, char *arg)
 {
 	char	*padding;
 
 	if (opt->width > 0
-		&& (size_t)opt->width > (ft_strlen(sign) + ft_strlen(arg))
+		&& opt->width > (ft_strlen(sign) + ft_strlen(arg))
 		&& opt->width > opt->prec)
 	{
-		padding = set_padding(opt->zero,
+		padding = zero_padding(opt->zero,
 				opt->width - (ft_strlen(sign) + ft_strlen(arg)));
 		if (opt->zero == 1)
 			padding = ft_strjoin(sign, padding);
 		else
 			arg = ft_strjoin(sign, arg);
-		arg = set_sorting(opt->minus, arg, padding);
+		if (!padding || !arg)
+			return (NULL);
+		arg = minus_sorting(opt->minus, arg, padding);
 	}
 	else
 		arg = ft_strjoin(sign, arg);
+	if (!arg)
+		return (NULL);
 	return (arg);
 }
